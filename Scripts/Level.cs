@@ -5,19 +5,35 @@ using System.Diagnostics;
 
 public class Level : Node
 {
-	private TileMap _tileMap;
 	private Random _random;
-	private Player _player;
 
-	private string[] _tiles = new string[] { "Stone", "Sand", "Grass", "Dirt", "Sandstone" };
+	private TileMap _tileMap;
+	private Player _player;
+	private AudioStreamPlayer _tileAudioPlayer;
+
+	private Dictionary<Tile, AudioStream> _footstepSounds;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_random = new Random();
+
 		_tileMap = GetNode<TileMap>("Map");
 		_player = GetNode<Player>("Player");
+		_tileAudioPlayer = GetNode<AudioStreamPlayer>("TileAudioPlayer");
+
+		_footstepSounds = new Dictionary<Tile, AudioStream>();
+		AddFootstepSound(Tile.Stone,     "footstep_tile");
+		AddFootstepSound(Tile.Grass,     "footstep_carpet");
+		AddFootstepSound(Tile.Sandstone, "footstep_wood_1");
+
 		GenerateTiles();
+	}
+
+	private void AddFootstepSound(Tile tile, string wavFileName)
+	{
+		var sound = ResourceLoader.Load<AudioStreamSample>($"res://Assets/Sounds/{wavFileName}.wav");
+		_footstepSounds.Add(tile, sound);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,10 +41,14 @@ public class Level : Node
 	{
 		if (Input.IsActionJustPressed("ui_select"))
 		{
-			PlayerCurrentTile();
+			Tile currentTile = PlayerCurrentTile();
+			_footstepSounds.TryGetValue(currentTile, out AudioStream footstepSound);
+			if (footstepSound != null)
+			{
+				_tileAudioPlayer.Stream = footstepSound;
+				_tileAudioPlayer.Play();
+			}
 		}
-		
-		
 	}
 
 	public void GenerateTiles()
@@ -47,10 +67,22 @@ public class Level : Node
 		
 	}
 
-	public void PlayerCurrentTile()
+	public Tile PlayerCurrentTile()
 	{
 		var curTileCoords = _tileMap.WorldToMap(_player.Position);
-		var tile = _tileMap.GetCellv(curTileCoords);
-		GD.Print($"{_player.Position} - {_tiles[tile]}");
+		var tileI = _tileMap.GetCellv(curTileCoords);
+		var tile = (Tile)tileI;
+		GD.Print($"{_player.Position} - {tile}");
+		return tile;
 	}
+
+}
+
+public enum Tile
+{
+	Stone,
+	Sand,
+	Grass,
+	Dirt,
+	Sandstone
 }
