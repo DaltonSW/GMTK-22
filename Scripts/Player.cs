@@ -7,10 +7,11 @@ public class Player : KinematicBody2D
 	private int _speed = 100;
 
 	private Vector2 _velocity = new Vector2();
+	public Position2D CurPos;
 
 	public override void _Ready()
 	{
-		
+		CurPos = GetNode<Position2D>("Position");
 	}
 
 	public Vector2 GetInputVelocity()
