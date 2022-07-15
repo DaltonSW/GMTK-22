@@ -1,16 +1,22 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 public class Level : Node
 {
     private TileMap _tileMap;
     private Random _random;
-    
-    // Called when the node enters the scene tree for the first time.
+    private Player _player;
+
+    private string[] _tiles = new string[] { "Stone", "Sand", "Grass", "Dirt", "Sandstone" };
+
+// Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         _random = new Random();
         _tileMap = GetNode<TileMap>("Map");
+        _player = GetNode<Player>("Player");
         GenerateTiles();
     }
 
@@ -19,15 +25,17 @@ public class Level : Node
     {
         if (Input.IsActionJustPressed("ui_select"))
         {
-            GenerateTiles();
+            PlayerCurrentTile();
         }
+        
+        
     }
 
     public void GenerateTiles()
     {
-        for (var i = 0; i < 32; i++)
+        for (var i = 0; i < 16; i++)
         {
-            for (var j = 0; j < 24; j++)
+            for (var j = 0; j < 12; j++)
             {
                 _tileMap.SetCell(i, j, _random.Next(0, 5));
             }
@@ -37,5 +45,12 @@ public class Level : Node
     public void SetRandomTile()
     {
         
+    }
+
+    public void PlayerCurrentTile()
+    {
+        var curTileCoords = _tileMap.WorldToMap(_player.Position);
+        var tile = _tileMap.GetCellv(curTileCoords);
+        GD.Print($"{_player.Position} - {_tiles[tile]}");
     }
 }
