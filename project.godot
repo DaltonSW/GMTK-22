@@ -10,8 +10,13 @@ config_version=4
 
 [application]
 
-config/name="Gmtk- 22"
+config/name="GMTK- 22"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/height=768
+window/size/resizable=false
 
 [physics]
 
