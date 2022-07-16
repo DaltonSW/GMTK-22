@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/cards_shuffling.wav-98419ae990445a4f97ad1f103b02a5dd.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/cards_shuffling.wav"
+dest_files=[ "res://.import/cards_shuffling.wav-98419ae990445a4f97ad1f103b02a5dd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

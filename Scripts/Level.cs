@@ -6,6 +6,7 @@ using System.Diagnostics;
 public class Level : Node
 {
 	private PackedScene _enemyScene;
+	private PackedScene _cardTableScene;
 	
 	private Random _random;
 
@@ -13,6 +14,9 @@ public class Level : Node
 	private Player _player;
 	private AudioStreamPlayer _tileAudioPlayer;
 	private DiceTimer _diceTimer;
+
+	private List<CardTable> _cardTables;
+	private Label _youWinMessage;
 
 	private Dictionary<Tile, AudioStream> _footstepSounds;
 
@@ -25,22 +29,31 @@ public class Level : Node
 		_player = GetNode<Player>("Player");
 		_tileAudioPlayer = GetNode<AudioStreamPlayer>("TileAudioPlayer");
 		_diceTimer = GetNode<DiceTimer>("DiceTimer");
+		_youWinMessage = GetNode<Label>("YouWinMessage");
+		_cardTables = new List<CardTable>();
 
 		_enemyScene = GD.Load<PackedScene>("res://Scenes/Bouncer.tscn");
+		_cardTableScene = GD.Load<PackedScene>("res://Scenes/CardTable.tscn");
 
 		_footstepSounds = new Dictionary<Tile, AudioStream>();
-		AddFootstepSound(Tile.Stone,     "footstep_tile");
-		AddFootstepSound(Tile.Tile,     "footstep_tile");
-		AddFootstepSound(Tile.Carpet1,     "footstep_carpet");
-		AddFootstepSound(Tile.Carpet2,     "footstep_carpet");
-		AddFootstepSound(Tile.Wood, "footstep_wood_1");
+		AddFootstepSound(Tile.Stone,   "footstep_tile");
+		AddFootstepSound(Tile.Tile,    "footstep_tile");
+		AddFootstepSound(Tile.Carpet1, "footstep_carpet");
+		AddFootstepSound(Tile.Carpet2, "footstep_carpet");
+		AddFootstepSound(Tile.Wood,    "footstep_wood_1");
 
+		GenerateLevel();
+
+		_diceTimer.MakeVisibleAndStart();
+		_diceTimer.Connect("TimerFinished", this, nameof(OnDiceTimerFinished));
+	}
+
+	private void GenerateLevel()
+	{
 		GenerateTiles();
 		SpawnPlayer();
-		_diceTimer.MakeVisibleAndStart();
-		_diceTimer.Connect("TimerFinished", this, nameof(SpawnEnemies));
-
-		
+		ClearCardTables();
+		GenerateCardTables();
 	}
 
 	private void AddFootstepSound(Tile tile, string wavFileName)
@@ -54,15 +67,15 @@ public class Level : Node
 	{
 		if (Input.IsActionJustPressed("ui_select"))
 		{
-			// Tile currentTile = PlayerCurrentTile();
-			// _footstepSounds.TryGetValue(currentTile, out AudioStream footstepSound);
-			// if (footstepSound != null)
-			// {
-			// 	_tileAudioPlayer.Stream = footstepSound;
-			// 	_tileAudioPlayer.Play();
-			// }
-			GenerateTiles();
-			SpawnPlayer();
+			if (_player.AdjacentToObjective)
+			{
+				_youWinMessage.Visible = true;
+				GetTree().Paused = true;
+			} 
+			else
+			{
+				GenerateLevel();
+			}
 		}
 	}
 
@@ -113,11 +126,52 @@ public class Level : Node
 		}
 	}
 
+	private void ClearCardTables()
+	{
+		foreach (var ct in _cardTables)
+		{
+			ct.QueueFree();
+		}
+		_cardTables.Clear();
+	}
+
+	private void GenerateCardTables()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			AddCardTable(i == 1);
+		}
+	}
+
+	private void AddCardTable(bool objective)
+	{
+		var cardTable = _cardTableScene.Instance<CardTable>();
+		_cardTables.Add(cardTable);
+		AddChild(cardTable);
+		if (!objective)
+		{
+			cardTable.RemoveDealer();
+		}
+		cardTable.Position = RandomSpawnPosition();
+	}
+
 	private void SpawnPlayer()
+	{
+		_player.Visible = true;
+		_player.Position = RandomSpawnPosition();
+	}
+
+	private Vector2 RandomSpawnPosition()
 	{
 		var spawnTile = new Vector2(_random.Next(0, 31), _random.Next(0, 23)) * 32;
 		var spawnPos = spawnTile + new Vector2(16, 16);
-		_player.Position = spawnPos;
+		return spawnPos;
+	}
+
+	private void OnDiceTimerFinished()
+	{
+		_player.Visible = false;
+		SpawnEnemies();
 	}
 
 	private void SpawnEnemies()
@@ -155,8 +209,8 @@ public class Level : Node
 			if (footstepSound != null)
 			{
 				_tileAudioPlayer.Stream = footstepSound;
+				_tileAudioPlayer.Play();
 			}
-			_tileAudioPlayer.Play();
 		}
 	}
 
