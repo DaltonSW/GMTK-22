@@ -7,8 +7,7 @@ public class Player : KinematicBody2D
 	[Export]
 	private int _speed = 100;
 
-	private Vector2 _velocity = new Vector2();
-	public Position2D CurPos;
+	private Vector2 _velocity;
 
 	// Keeps track of which objects the player collided with last time we checked collisions.
 	// By default in Godot, when the player collides with an object,
@@ -19,7 +18,6 @@ public class Player : KinematicBody2D
 
 	public override void _Ready()
 	{
-		CurPos = GetNode<Position2D>("Position");
 		_objectsCollidedWithLastCheck = new List<CollisionObject2D>();
 	}
 

@@ -154,8 +154,3 @@ public enum Tile
 	Stone
 }
 
-// Small Tiles
-// Carpet 1
-// Carpet 2
-// Stone Tiles
-// Wood
