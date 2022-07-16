@@ -30,6 +30,7 @@ public class Level : Node
 		AddFootstepSound(Tile.Wood, "footstep_wood_1");
 
 		GenerateTiles();
+		SpawnPlayer();
 	}
 
 	private void AddFootstepSound(Tile tile, string wavFileName)
@@ -51,6 +52,7 @@ public class Level : Node
 			// 	_tileAudioPlayer.Play();
 			// }
 			GenerateTiles();
+			SpawnPlayer();
 		}
 	}
 
@@ -58,32 +60,32 @@ public class Level : Node
 	public void GenerateTiles() 
 	{
 		// Base layer
-		for (var x = 0; x < 32; x++)
+		for (var x = 1; x < 31; x++)
 		{
-			for (var y = 0; y < 24; y++)
+			for (var y = 1; y < 23; y++)
 			{
-				_tileMap.SetCell(x, y, 0); 
+				_tileMap.SetCell(x, y, (int) Tile.Tile); 
 			}
 		}
 
 		for (var i = 0; i < 10; i++)
 		{
-			AddRectangle(_tileMap, 10, 1);
+			AddRectangle(_tileMap, 10,(int) Tile.Carpet1);
 		}
 		
 		for (var i = 0; i < 11; i++)
 		{
-			AddRectangle(_tileMap, 9, 2);
+			AddRectangle(_tileMap, 9, (int) Tile.Carpet2);
 		}
 		
 		for (var i = 0; i < 12; i++)
 		{
-			AddRectangle(_tileMap, 8, 3);
+			AddRectangle(_tileMap, 8, (int) Tile.Wood);
 		}
 
 		for (var i = 0; i < 13; i++)
 		{
-			AddRectangle(_tileMap, 7, 4);
+			AddRectangle(_tileMap, 7, (int) Tile.Stone);
 		}
 
 
@@ -104,9 +106,11 @@ public class Level : Node
 		}
 	}
 
-	public void SetRandomTile()
+	private void SpawnPlayer()
 	{
-		
+		var spawnTile = new Vector2(_random.Next(0, 31), _random.Next(0, 23)) * 32;
+		var spawnPos = spawnTile + new Vector2(16, 16);
+		_player.Position = spawnPos;
 	}
 
 	public Tile PlayerCurrentTile()
@@ -127,11 +131,11 @@ public class Level : Node
 
 public enum Tile
 {
+	Tile,
 	Carpet1,
 	Carpet2,
-	Stone,
-	Tile,
-	Wood
+	Wood,
+	Stone
 }
 
 // Small Tiles
