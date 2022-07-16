@@ -36,8 +36,8 @@ public class Level : Node
 		_cardTableScene = GD.Load<PackedScene>("res://Scenes/CardTable.tscn");
 
 		_footstepSounds = new Dictionary<Tile, AudioStream>();
-		AddFootstepSound(Tile.Stone,   "footstep_tile");
-		AddFootstepSound(Tile.Tile,    "footstep_tile");
+		AddFootstepSound(Tile.Stone,   "footstep_tile_1");
+		AddFootstepSound(Tile.Tile,    "footstep_tile_1");
 		AddFootstepSound(Tile.Carpet1, "footstep_carpet");
 		AddFootstepSound(Tile.Carpet2, "footstep_carpet");
 		AddFootstepSound(Tile.Wood,    "footstep_wood_1");

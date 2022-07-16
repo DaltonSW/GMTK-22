@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/footstep_tile_1.wav-f0df4914cd15a5153ac2d42826a9af4f.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/footstep_tile_1.wav"
+dest_files=[ "res://.import/footstep_tile_1.wav-f0df4914cd15a5153ac2d42826a9af4f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
