@@ -127,6 +127,22 @@ public class Level : Node
 		return new Vector2(_random.Next(0, 30), _random.Next(0, 20));
 	}
 
+	public void _on_FootstepClock_timeout()
+	{
+		_tileAudioPlayer.Stop();
+		if (_player.IsMoving())
+		{
+			var currentTile = PlayerCurrentTile();
+			GD.Print($"Playing footstep sound for: {currentTile}");
+			_footstepSounds.TryGetValue(currentTile, out AudioStream footstepSound);
+			if (footstepSound != null)
+			{
+				_tileAudioPlayer.Stream = footstepSound;
+			}
+			_tileAudioPlayer.Play();
+		}
+	}
+
 }
 
 public enum Tile

@@ -55,15 +55,19 @@ public class Player : KinematicBody2D
 		for (int i = 0; i < numCollisions; i++)
 		{
 			var collision = GetSlideCollision(i);
-			var collider = (CollisionObject2D) collision.Collider;
-			collidedWithThisCheck.Add(collider);
-			if (!_objectsCollidedWithLastCheck.Contains(collider)
-				&& collider.IsInGroup("noise_prop_collision_box"))
+			var collider = collision.Collider as CollisionObject2D;
+			if (collider != null)
 			{
-				collider.EmitSignal("player_collided");
+				collidedWithThisCheck.Add(collider);
+				if (!_objectsCollidedWithLastCheck.Contains(collider)
+					&& collider.IsInGroup("noise_prop_collision_box"))
+				{
+					collider.EmitSignal("player_collided");
+				}
 			}
 		}
 		_objectsCollidedWithLastCheck = collidedWithThisCheck;
 	}
 
+	public bool IsMoving() => !_velocity.IsEqualApprox(new Vector2(0, 0));
 }

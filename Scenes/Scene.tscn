@@ -114,3 +114,9 @@ tile_data = PoolIntArray( 0, 5, 0, 1, 5, 0, 2, 5, 0, 3, 5, 0, 4, 5, 0, 5, 5, 0, 
 position = Vector2( 10, 10 )
 
 [node name="TileAudioPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="FootstepClock" type="Timer" parent="."]
+wait_time = 0.6
+autostart = true
+
+[connection signal="timeout" from="FootstepClock" to="." method="_on_FootstepClock_timeout"]
