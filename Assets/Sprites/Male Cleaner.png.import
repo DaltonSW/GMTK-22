@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/poker_table.png-0c23125beca2c17f83f91774b031b646.stex"
+path="res://.import/Male Cleaner.png-46d74f1a8a20120502aa9b75b7d80440.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/poker_table.png"
-dest_files=[ "res://.import/poker_table.png-0c23125beca2c17f83f91774b031b646.stex" ]
+source_file="res://Assets/Sprites/Male Cleaner.png"
+dest_files=[ "res://.import/Male Cleaner.png-46d74f1a8a20120502aa9b75b7d80440.stex" ]
 
 [params]
 

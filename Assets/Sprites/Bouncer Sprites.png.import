@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/poker_table.png-0c23125beca2c17f83f91774b031b646.stex"
+path="res://.import/Bouncer Sprites.png-324bb84d82521cdda86722c2c5e16f83.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/poker_table.png"
-dest_files=[ "res://.import/poker_table.png-0c23125beca2c17f83f91774b031b646.stex" ]
+source_file="res://Assets/Sprites/Bouncer Sprites.png"
+dest_files=[ "res://.import/Bouncer Sprites.png-324bb84d82521cdda86722c2c5e16f83.stex" ]
 
 [params]
 
@@ -18,7 +18,7 @@ compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
-compress/normal_map=0
+compress/normal_map=2
 flags/repeat=0
 flags/filter=false
 flags/mipmaps=false

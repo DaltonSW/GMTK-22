@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/poker_table.png-0c23125beca2c17f83f91774b031b646.stex"
+path="res://.import/Pit Boss.png-7b5ec071a71077f9a667ac469665b20e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/poker_table.png"
-dest_files=[ "res://.import/poker_table.png-0c23125beca2c17f83f91774b031b646.stex" ]
+source_file="res://Assets/Sprites/Pit Boss.png"
+dest_files=[ "res://.import/Pit Boss.png-7b5ec071a71077f9a667ac469665b20e.stex" ]
 
 [params]
 
