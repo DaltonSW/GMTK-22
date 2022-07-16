@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/dice_rolling.mp3-b81ff84f9dedc44f542711f25651df0d.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/dice_rolling.mp3"
+dest_files=[ "res://.import/dice_rolling.mp3-b81ff84f9dedc44f542711f25651df0d.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

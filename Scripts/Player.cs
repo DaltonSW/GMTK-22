@@ -9,6 +9,12 @@ public class Player : KinematicBody2D
 
 	private Vector2 _velocity;
 
+	private bool _adjacentToObjective;
+
+	public bool AdjacentToObjective { 
+		get { return _adjacentToObjective; }
+	}
+
 	// Keeps track of which objects the player collided with last time we checked collisions.
 	// By default in Godot, when the player collides with an object,
 	// collisions are detected repeatedly until the player moves away.
@@ -18,6 +24,7 @@ public class Player : KinematicBody2D
 
 	public override void _Ready()
 	{
+		_adjacentToObjective = false;
 		_objectsCollidedWithLastCheck = new List<CollisionObject2D>();
 	}
 
@@ -68,4 +75,19 @@ public class Player : KinematicBody2D
 	}
 
 	public bool IsMoving() => !_velocity.IsEqualApprox(new Vector2(0, 0));
+
+	private void _on_AdjacentArea_body_entered(Node body)
+	{
+		if (body.IsInGroup("objective"))
+		{
+			_adjacentToObjective = true;
+		}
+	}
+	private void _on_AdjacentArea_body_exited(Node body)
+	{
+		if (body.IsInGroup("objective"))
+		{
+			_adjacentToObjective = false;
+		}
+	}
 }
