@@ -34,7 +34,7 @@ public class Player : KinematicBody2D
 
 	private bool _adjacentToObjective;
 
-	private Node2D _protagSprite;
+	private AnimatedSprite _protagSprite;
 
 	public bool AdjacentToObjective { 
 		get { return _adjacentToObjective; }
@@ -54,7 +54,7 @@ public class Player : KinematicBody2D
 			_protagSprite.QueueFree();
 		}
 		var protagScene = ResourceLoader.Load<PackedScene>($"res://Scenes/Characters/{po.SceneName()}.tscn");
-		_protagSprite = protagScene.Instance<Node2D>();
+		_protagSprite = protagScene.Instance<AnimatedSprite>();
 		_protagSprite.Position = new Vector2(0, -8);
 		AddChild(_protagSprite);
 	}
@@ -92,6 +92,11 @@ public class Player : KinematicBody2D
 			velocity.y -= 1;
 		}
 		return velocity.Normalized() * _speed;
+	}
+
+	public override void _Process(float delta)
+	{
+		_protagSprite.Animation = MovementAnimationUtils.NextMovementAnimation(_velocity, _protagSprite);
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -135,3 +140,37 @@ public class Player : KinematicBody2D
 		}
 	}
 }
+
+public static class MovementAnimationUtils
+{
+	public static string NextMovementAnimation(Vector2 velocity, AnimatedSprite sprite)
+	{
+		if (velocity.y > 0)
+		{
+			return "Walk Down";
+		}
+		else if (velocity.y < 0)
+		{
+			return "Walk Up";
+		}
+		else if (velocity.x < 0)
+		{
+			return "Walk Left";
+		}
+		else if (velocity.x > 0)
+		{
+			return "Walk Right";
+		}
+		else
+		{
+			switch (sprite.Animation)
+			{
+				case "Walk Down":  return "Idle Down";
+				case "Walk Up":    return "Idle Up";
+				case "Walk Left":  return "Idle Left";
+				case "Walk Right": return "Idle Right";
+				default: return "Idle Down";
+			}
+		}
+	}
+} 

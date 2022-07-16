@@ -241,6 +241,5 @@ animations = [ {
 scale = Vector2( 2, 2 )
 frames = SubResource( 12 )
 animation = "Idle Down"
-frame = 4
 speed_scale = 2.0
 playing = true
