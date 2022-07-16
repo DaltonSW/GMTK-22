@@ -150,7 +150,7 @@ public class Level : Node
 
 	private void GenerateCardTables()
 	{
-		for (int i = 0; i < 3; i++)
+		for (var i = 0; i < 3; i++)
 		{
 			AddCardTable(i == 1);
 		}
@@ -175,7 +175,7 @@ public class Level : Node
 
 	private void GenerateSlotMachines()
 	{
-		for (int i = 0; i < 1; i++)
+		for (var i = 0; i < 1; i++)
 		{
 			var slotMachine = _slotMachineScene.Instance<Node2D>();
 			_slotMachines.Add(slotMachine);
@@ -207,7 +207,7 @@ public class Level : Node
 
 	private void SpawnEnemies()
 	{
-		for (int i = 0; i < 3; i++)
+		for (var i = 0; i < 3; i++)
 		{
 			var bouncer = (Bouncer)_enemyScene.Instance();
 			bouncer.Position = GetRandomTile() * 32;

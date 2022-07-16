@@ -3,16 +3,16 @@ using System;
 
 public class MainMenu : Control
 {
-	private AudioStreamPlayer audioPlayer;
-	private AudioStreamSample menuSong;
+	private AudioStreamPlayer _audioPlayer;
+	private AudioStreamSample _menuSong;
 
 	public override void _Ready()
 	{
-		menuSong = GD.Load<AudioStreamSample>("res://Assets/Sounds/MainMenu.wav");
-		audioPlayer = GetNode<AudioStreamPlayer>("AudioPlayer");
-		audioPlayer.Autoplay = true;
-		audioPlayer.Stream = menuSong;
-		audioPlayer.Play();
+		_menuSong = GD.Load<AudioStreamSample>("res://Assets/Sounds/MainMenu.wav");
+		_audioPlayer = GetNode<AudioStreamPlayer>("AudioPlayer");
+		_audioPlayer.Autoplay = true;
+		_audioPlayer.Stream = _menuSong;
+		_audioPlayer.Play();
 	}
 
 	public void _on_StartButton_pressed()
