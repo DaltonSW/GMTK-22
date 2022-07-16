@@ -32,13 +32,9 @@ public class Player : KinematicBody2D
 
 	private Vector2 _velocity;
 
-	private bool _adjacentToObjective;
-
 	private AnimatedSprite _protagSprite;
 
-	public bool AdjacentToObjective { 
-		get { return _adjacentToObjective; }
-	}
+	public bool AdjacentToObjective { get; private set; }
 
 	public static ProtagonistOption RandomProtagonistOption(Random rng)
 	{
@@ -68,7 +64,7 @@ public class Player : KinematicBody2D
 
 	public override void _Ready()
 	{
-		_adjacentToObjective = false;
+		AdjacentToObjective = false;
 		_objectsCollidedWithLastCheck = new List<CollisionObject2D>();
 	}
 
@@ -105,7 +101,7 @@ public class Player : KinematicBody2D
 		_velocity = MoveAndSlide(_velocity);
 
 		var collidedWithThisCheck = new List<CollisionObject2D>();
-		int numCollisions = GetSlideCount();
+		var numCollisions = GetSlideCount();
 		for (int i = 0; i < numCollisions; i++)
 		{
 			var collision = GetSlideCollision(i);
@@ -129,14 +125,14 @@ public class Player : KinematicBody2D
 	{
 		if (body.IsInGroup("objective"))
 		{
-			_adjacentToObjective = true;
+			AdjacentToObjective = true;
 		}
 	}
 	private void _on_AdjacentArea_body_exited(Node body)
 	{
 		if (body.IsInGroup("objective"))
 		{
-			_adjacentToObjective = false;
+			AdjacentToObjective = false;
 		}
 	}
 }
