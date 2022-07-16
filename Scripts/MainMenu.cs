@@ -17,7 +17,7 @@ public class MainMenu : Control
 
 	public void _on_StartButton_pressed()
 	{
-		GetTree().ChangeScene("res://Scenes/CardTable.tscn");
+		GetTree().ChangeScene("res://Scenes/Scene.tscn");
 	}
 
 	public void _on_QuitButton_pressed()
