@@ -24,8 +24,10 @@ public class Level : Node
 
 		_footstepSounds = new Dictionary<Tile, AudioStream>();
 		AddFootstepSound(Tile.Stone,     "footstep_tile");
-		AddFootstepSound(Tile.Grass,     "footstep_carpet");
-		AddFootstepSound(Tile.Sandstone, "footstep_wood_1");
+		AddFootstepSound(Tile.Tile,     "footstep_tile");
+		AddFootstepSound(Tile.Carpet1,     "footstep_carpet");
+		AddFootstepSound(Tile.Carpet2,     "footstep_carpet");
+		AddFootstepSound(Tile.Wood, "footstep_wood_1");
 
 		GenerateTiles();
 	}
@@ -41,23 +43,63 @@ public class Level : Node
 	{
 		if (Input.IsActionJustPressed("ui_select"))
 		{
-			Tile currentTile = PlayerCurrentTile();
-			_footstepSounds.TryGetValue(currentTile, out AudioStream footstepSound);
-			if (footstepSound != null)
-			{
-				_tileAudioPlayer.Stream = footstepSound;
-				_tileAudioPlayer.Play();
-			}
+			// Tile currentTile = PlayerCurrentTile();
+			// _footstepSounds.TryGetValue(currentTile, out AudioStream footstepSound);
+			// if (footstepSound != null)
+			// {
+			// 	_tileAudioPlayer.Stream = footstepSound;
+			// 	_tileAudioPlayer.Play();
+			// }
+			GenerateTiles();
 		}
 	}
 
-	public void GenerateTiles()
+	//TODO: Replace the hardcoded tile values with enums when we settle on tiles and ordering
+	public void GenerateTiles() 
 	{
-		for (var i = 0; i < 16; i++)
+		// Base layer
+		for (var x = 0; x < 32; x++)
 		{
-			for (var j = 0; j < 12; j++)
+			for (var y = 0; y < 24; y++)
 			{
-				_tileMap.SetCell(i, j, _random.Next(0, 5));
+				_tileMap.SetCell(x, y, 0); 
+			}
+		}
+
+		for (var i = 0; i < 10; i++)
+		{
+			AddRectangle(_tileMap, 10, 1);
+		}
+		
+		for (var i = 0; i < 11; i++)
+		{
+			AddRectangle(_tileMap, 9, 2);
+		}
+		
+		for (var i = 0; i < 12; i++)
+		{
+			AddRectangle(_tileMap, 8, 3);
+		}
+
+		for (var i = 0; i < 13; i++)
+		{
+			AddRectangle(_tileMap, 7, 4);
+		}
+
+
+	}
+
+	private void AddRectangle(TileMap tm, int maxVariance, int tile)
+	{
+		var topLeft = GetRandomTile();
+		var width = _random.Next(2, maxVariance);
+		var height = _random.Next(2, maxVariance);
+
+		for (var x = (int)topLeft.x; x < topLeft.x + width; x++)
+		{
+			for (var y = (int)topLeft.y; y < topLeft.y + height; y++)
+			{
+				tm.SetCell(x, y, tile);
 			}
 		}
 	}
@@ -76,13 +118,24 @@ public class Level : Node
 		return tile;
 	}
 
+	private Vector2 GetRandomTile()
+	{
+		return new Vector2(_random.Next(0, 30), _random.Next(0, 20));
+	}
+
 }
 
 public enum Tile
 {
+	Carpet1,
+	Carpet2,
 	Stone,
-	Sand,
-	Grass,
-	Dirt,
-	Sandstone
+	Tile,
+	Wood
 }
+
+// Small Tiles
+// Carpet 1
+// Carpet 2
+// Stone Tiles
+// Wood
