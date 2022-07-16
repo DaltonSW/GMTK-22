@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Scripts/ProximityNoiseProp.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/NoiseProp.cs" type="Script" id=1]
 
 [sub_resource type="GradientTexture" id=1]
 
@@ -10,7 +10,7 @@ radius = 256.0
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 64, 64 )
 
-[node name="ProximityNoiseProp" type="Node2D"]
+[node name="NoiseProp" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -18,14 +18,16 @@ position = Vector2( -9.53674e-07, 0 )
 scale = Vector2( 0.0625, 128 )
 texture = SubResource( 1 )
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="ProximityAudioPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="NoiseArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NoiseArea"]
 shape = SubResource( 3 )
 
-[node name="CollisionBox" type="StaticBody2D" parent="."]
+[node name="CollisionAudioPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="CollisionBox" type="StaticBody2D" parent="." groups=["noise_prop_collision_box"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBox"]
 shape = SubResource( 2 )
