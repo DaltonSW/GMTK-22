@@ -84,7 +84,7 @@ public class Level : Node
 		// Base layer
 		for (var x = 1; x < 31; x++)
 		{
-			for (var y = 1; y < 23; y++)
+			for (var y = 1; y < 24; y++)
 			{
 				_tileMap.SetCell(x, y, (int) Tile.Tile); 
 			}
@@ -121,6 +121,7 @@ public class Level : Node
 		{
 			for (var y = (int)topLeft.y; y < topLeft.y + height; y++)
 			{
+				if (x == 0 || x == 31 || y == 0 || y == 24) continue;
 				tm.SetCell(x, y, tile);
 			}
 		}
