@@ -10,6 +10,7 @@ public class Level : Node
 	private TileMap _tileMap;
 	private Player _player;
 	private AudioStreamPlayer _tileAudioPlayer;
+	private DiceTimer _diceTimer;
 
 	private Dictionary<Tile, AudioStream> _footstepSounds;
 
@@ -21,6 +22,7 @@ public class Level : Node
 		_tileMap = GetNode<TileMap>("Map");
 		_player = GetNode<Player>("Player");
 		_tileAudioPlayer = GetNode<AudioStreamPlayer>("TileAudioPlayer");
+		_diceTimer = GetNode<DiceTimer>("DiceTimer");
 
 		_footstepSounds = new Dictionary<Tile, AudioStream>();
 		AddFootstepSound(Tile.Stone,     "footstep_tile");
@@ -31,6 +33,8 @@ public class Level : Node
 
 		GenerateTiles();
 		SpawnPlayer();
+		_diceTimer.MakeVisibleAndStart();
+		_diceTimer.Connect("TimerFinished", this, nameof(SpawnPlayer));
 	}
 
 	private void AddFootstepSound(Tile tile, string wavFileName)
@@ -111,6 +115,11 @@ public class Level : Node
 		var spawnTile = new Vector2(_random.Next(0, 31), _random.Next(0, 23)) * 32;
 		var spawnPos = spawnTile + new Vector2(16, 16);
 		_player.Position = spawnPos;
+	}
+
+	private void SpawnEnemies()
+	{
+		
 	}
 
 	public Tile PlayerCurrentTile()

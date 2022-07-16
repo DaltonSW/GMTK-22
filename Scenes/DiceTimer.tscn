@@ -1,0 +1,30 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Assets/Sprites/Dice/5.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Sprites/Dice/1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/Dice/3.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/Dice/4.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/Dice/2.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sprites/Dice/6.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/DiceTimer.cs" type="Script" id=7]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ null, ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "countdown",
+"speed": 0.0
+} ]
+
+[node name="DiceTimer" type="Node2D"]
+script = ExtResource( 7 )
+
+[node name="Die" type="AnimatedSprite" parent="."]
+position = Vector2( 2, 2 )
+frames = SubResource( 1 )
+animation = "countdown"
+frame = 6
+speed_scale = 0.0
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 0
