@@ -7,6 +7,7 @@ public class Level : Node
 {
 	private PackedScene _enemyScene;
 	private PackedScene _cardTableScene;
+	private PackedScene _slotMachineScene;
 	
 	private Random _random;
 
@@ -16,6 +17,7 @@ public class Level : Node
 	private DiceTimer _diceTimer;
 
 	private List<CardTable> _cardTables;
+	private List<Node2D> _slotMachines;
 	private Label _youWinMessage;
 
 	private Dictionary<Tile, AudioStream> _footstepSounds;
@@ -31,9 +33,11 @@ public class Level : Node
 		_diceTimer = GetNode<DiceTimer>("DiceTimer");
 		_youWinMessage = GetNode<Label>("YouWinMessage");
 		_cardTables = new List<CardTable>();
+		_slotMachines = new List<Node2D>();
 
 		_enemyScene = GD.Load<PackedScene>("res://Scenes/Characters/Bouncer.tscn");
 		_cardTableScene = GD.Load<PackedScene>("res://Scenes/CardTable.tscn");
+		_slotMachineScene = GD.Load<PackedScene>("res://Scenes/Props/SlotMachine.tscn");
 
 		_footstepSounds = new Dictionary<Tile, AudioStream>();
 		AddFootstepSound(Tile.Stone,   "footstep_tile_1");
@@ -54,6 +58,8 @@ public class Level : Node
 		SpawnPlayer();
 		ClearCardTables();
 		GenerateCardTables();
+		ClearSlotMachines();
+		GenerateSlotMachines();
 	}
 
 	private void AddFootstepSound(Tile tile, string wavFileName)
@@ -127,13 +133,19 @@ public class Level : Node
 		}
 	}
 
+	private static void ClearNodes<T>(List<T> nodes)
+		where T : Node2D
+	{
+		foreach (var node in nodes)
+		{
+			node.QueueFree();
+		}
+		nodes.Clear();
+	}
+
 	private void ClearCardTables()
 	{
-		foreach (var ct in _cardTables)
-		{
-			ct.QueueFree();
-		}
-		_cardTables.Clear();
+		ClearNodes(_cardTables);
 	}
 
 	private void GenerateCardTables()
@@ -154,6 +166,23 @@ public class Level : Node
 			cardTable.RemoveDealer();
 		}
 		cardTable.Position = RandomSpawnPosition();
+	}
+
+	private void ClearSlotMachines()
+	{
+		ClearNodes(_slotMachines);
+	}
+
+	private void GenerateSlotMachines()
+	{
+		for (int i = 0; i < 1; i++)
+		{
+			var slotMachine = _slotMachineScene.Instance<Node2D>();
+			_slotMachines.Add(slotMachine);
+			AddChild(slotMachine);
+			MoveChild(slotMachine, 1);
+			slotMachine.Position = RandomSpawnPosition();
+		}
 	}
 
 	private void SpawnPlayer()
