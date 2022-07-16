@@ -1,6 +1,7 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://Assets/Sprites/Bouncer Sprites.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Bouncer.cs" type="Script" id=2]
 
 [sub_resource type="AtlasTexture" id=110]
 atlas = ExtResource( 1 )
@@ -394,21 +395,27 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=13]
-extents = Vector2( 14, 23 )
+[sub_resource type="CapsuleShape2D" id=203]
+radius = 15.0
+height = 18.0
 
-[node name="Bouncer" type="Node2D"]
+[node name="Bouncer" type="KinematicBody2D"]
+script = ExtResource( 2 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 12 )
-animation = "Run Up"
-frame = 4
+animation = "Walk Down"
+frame = 2
 speed_scale = 2.0
 playing = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-position = Vector2( 0, 9 )
-shape = SubResource( 13 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 8 )
+shape = SubResource( 203 )
+
+[node name="Position" type="Position2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Bouncer" type="Node2D" parent="."]

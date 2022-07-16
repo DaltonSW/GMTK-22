@@ -19,7 +19,7 @@ position = Vector2( 0, -35 )
 [node name="KinematicBody2D" parent="Dealer" index="0" groups=["objective"]]
 
 [node name="AnimatedSprite" parent="Dealer/KinematicBody2D" index="0"]
-frame = 1
+frame = 0
 
 [node name="NoiseProp" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 30 )

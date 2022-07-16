@@ -32,7 +32,7 @@ public class Level : Node
 		_youWinMessage = GetNode<Label>("YouWinMessage");
 		_cardTables = new List<CardTable>();
 
-		_enemyScene = GD.Load<PackedScene>("res://Scenes/Bouncer.tscn");
+		_enemyScene = GD.Load<PackedScene>("res://Scenes/Characters/Bouncer.tscn");
 		_cardTableScene = GD.Load<PackedScene>("res://Scenes/CardTable.tscn");
 
 		_footstepSounds = new Dictionary<Tile, AudioStream>();

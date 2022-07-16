@@ -64,7 +64,7 @@ extents = Vector2( 16, 32 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D"]
 scale = Vector2( 2, 2 )
 frames = SubResource( 12 )
-frame = 7
+frame = 9
 speed_scale = 2.0
 playing = true
 

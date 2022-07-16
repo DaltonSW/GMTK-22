@@ -248,7 +248,7 @@ extents = Vector2( 16, 23 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 12 )
 animation = "Idle Down"
-frame = 3
+frame = 2
 speed_scale = 2.0
 playing = true
 
