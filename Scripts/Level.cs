@@ -52,8 +52,6 @@ public class Level : Node
 	{
 		GenerateTiles();
 		SpawnPlayer();
-		_diceTimer.MakeVisibleAndStart();
-		_diceTimer.Connect("TimerFinished", this, nameof(SpawnEnemies));
 		ClearCardTables();
 		GenerateCardTables();
 	}
