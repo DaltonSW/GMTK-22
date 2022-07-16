@@ -5,6 +5,8 @@ using System.Diagnostics;
 
 public class Level : Node
 {
+	private PackedScene _enemyScene;
+	
 	private Random _random;
 
 	private TileMap _tileMap;
@@ -24,6 +26,8 @@ public class Level : Node
 		_tileAudioPlayer = GetNode<AudioStreamPlayer>("TileAudioPlayer");
 		_diceTimer = GetNode<DiceTimer>("DiceTimer");
 
+		_enemyScene = GD.Load<PackedScene>("res://Scenes/Bouncer.tscn");
+
 		_footstepSounds = new Dictionary<Tile, AudioStream>();
 		AddFootstepSound(Tile.Stone,     "footstep_tile");
 		AddFootstepSound(Tile.Tile,     "footstep_tile");
@@ -34,7 +38,9 @@ public class Level : Node
 		GenerateTiles();
 		SpawnPlayer();
 		_diceTimer.MakeVisibleAndStart();
-		_diceTimer.Connect("TimerFinished", this, nameof(SpawnPlayer));
+		_diceTimer.Connect("TimerFinished", this, nameof(SpawnEnemies));
+
+		
 	}
 
 	private void AddFootstepSound(Tile tile, string wavFileName)
@@ -60,7 +66,6 @@ public class Level : Node
 		}
 	}
 
-	//TODO: Replace the hardcoded tile values with enums when we settle on tiles and ordering
 	public void GenerateTiles() 
 	{
 		// Base layer
@@ -91,8 +96,6 @@ public class Level : Node
 		{
 			AddRectangle(_tileMap, 7, (int) Tile.Stone);
 		}
-
-
 	}
 
 	private void AddRectangle(TileMap tm, int maxVariance, int tile)
@@ -119,7 +122,12 @@ public class Level : Node
 
 	private void SpawnEnemies()
 	{
-		
+		for (int i = 0; i < 3; i++)
+		{
+			var bouncer = (Bouncer)_enemyScene.Instance();
+			bouncer.Position = GetRandomTile() * 32;
+			AddChild(bouncer);
+		}
 	}
 
 	public Tile PlayerCurrentTile()
