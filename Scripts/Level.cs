@@ -39,8 +39,6 @@ public class Level : Node
 		SpawnPlayer();
 		_diceTimer.MakeVisibleAndStart();
 		_diceTimer.Connect("TimerFinished", this, nameof(SpawnEnemies));
-
-		
 	}
 
 	private void AddFootstepSound(Tile tile, string wavFileName)
