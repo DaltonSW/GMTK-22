@@ -158,6 +158,7 @@ public class Level : Node
 
 	private void SpawnPlayer()
 	{
+		_player.SetProtagonist(Player.RandomProtagonistOption(_random));
 		_player.Visible = true;
 		_player.Position = RandomSpawnPosition();
 	}

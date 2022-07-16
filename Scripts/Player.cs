@@ -2,6 +2,29 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+public enum ProtagonistOption
+{
+	MaleProtagonist1,
+	MaleProtagonist2,
+	FemaleProtagonist1,
+	FemaleProtagonist2,
+}
+
+public static class ProtagonistOptionMethods
+{
+	public static string SceneName(this ProtagonistOption po)
+	{
+		switch (po)
+		{
+			case ProtagonistOption.MaleProtagonist1: return "MaleProtagonist1";
+			case ProtagonistOption.MaleProtagonist2: return "MaleProtagonist2";
+			case ProtagonistOption.FemaleProtagonist1: return "FemaleProtagonist1";
+			case ProtagonistOption.FemaleProtagonist2: return "FemaleProtagonist2";
+			default: throw new NotImplementedException();
+		}
+	}
+}
+
 public class Player : KinematicBody2D
 {
 	[Export]
@@ -11,8 +34,29 @@ public class Player : KinematicBody2D
 
 	private bool _adjacentToObjective;
 
+	private Node2D _protagSprite;
+
 	public bool AdjacentToObjective { 
 		get { return _adjacentToObjective; }
+	}
+
+	public static ProtagonistOption RandomProtagonistOption(Random rng)
+	{
+		var numOptions = Enum.GetValues(typeof(ProtagonistOption)).Length;
+		var i = rng.Next(numOptions);
+		return (ProtagonistOption) i;
+	}
+
+	public void SetProtagonist(ProtagonistOption po)
+	{
+		if (_protagSprite != null)
+		{
+			_protagSprite.QueueFree();
+		}
+		var protagScene = ResourceLoader.Load<PackedScene>($"res://Scenes/Characters/{po.SceneName()}.tscn");
+		_protagSprite = protagScene.Instance<Node2D>();
+		_protagSprite.Position = new Vector2(0, -8);
+		AddChild(_protagSprite);
 	}
 
 	// Keeps track of which objects the player collided with last time we checked collisions.

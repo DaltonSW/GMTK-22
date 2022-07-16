@@ -1,27 +1,21 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Player.cs" type="Script" id=1]
 
-[sub_resource type="GradientTexture" id=2]
-
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 16.0
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 16.0
+radius = 24.0
 
 [node name="Player" type="KinematicBody2D" groups=["player"]]
 script = ExtResource( 1 )
 _speed = 200
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, 9.53674e-07 )
-scale = Vector2( 0.00976562, 20 )
-texture = SubResource( 2 )
-
 [node name="Position" type="Position2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="AdjacentArea" type="Area2D" parent="."]
 
