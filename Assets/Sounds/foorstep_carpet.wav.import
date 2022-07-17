@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/foorstep_carpet.wav-30d8d2fe6af4576750aab0db087b6f7c.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/foorstep_carpet.wav"
+dest_files=[ "res://.import/foorstep_carpet.wav-30d8d2fe6af4576750aab0db087b6f7c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

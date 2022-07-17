@@ -2,12 +2,15 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Array = Godot.Collections.Array;
 
 public class Level : Node
 {
 	private PackedScene _enemyScene;
 	private PackedScene _cardTableScene;
 	private PackedScene _slotMachineScene;
+
+	private Array _propSpawns;
 	
 	private Random _random;
 
@@ -32,6 +35,7 @@ public class Level : Node
 		_tileAudioPlayer = GetNode<AudioStreamPlayer>("TileAudioPlayer");
 		_diceTimer = GetNode<DiceTimer>("DiceTimer");
 		_youWinMessage = GetNode<Label>("YouWinMessage");
+		_propSpawns = GetTree().GetNodesInGroup("propSpawns");
 		_cardTables = new List<CardTable>();
 		_slotMachines = new List<Node2D>();
 
@@ -49,7 +53,7 @@ public class Level : Node
 		GenerateLevel();
 
 		_diceTimer.MakeVisibleAndStart();
-		_diceTimer.Connect("TimerFinished", this, nameof(OnDiceTimerFinished));
+		_diceTimer.Connect("TimerFinished", this, nameof(OnDiceTimerFinished)); 
 	}
 
 	private void GenerateLevel()
@@ -165,7 +169,7 @@ public class Level : Node
 		{
 			cardTable.RemoveDealer();
 		}
-		cardTable.Position = RandomSpawnPosition();
+		cardTable.Position = RandomPropSpawn();
 	}
 
 	private void ClearSlotMachines()
@@ -181,8 +185,16 @@ public class Level : Node
 			_slotMachines.Add(slotMachine);
 			AddChild(slotMachine);
 			MoveChild(slotMachine, 1);
-			slotMachine.Position = RandomSpawnPosition();
+			slotMachine.Position = RandomPropSpawn();
 		}
+	}
+
+	private Vector2 RandomPropSpawn()
+	{
+		var idx = _random.Next(0, _propSpawns.Count);
+		var spawnPoint = (Position2D)_propSpawns[idx];
+		_propSpawns.Remove(idx);
+		return spawnPoint.Position;
 	}
 
 	private void SpawnPlayer()
@@ -194,7 +206,7 @@ public class Level : Node
 
 	private Vector2 RandomSpawnPosition()
 	{
-		var spawnTile = new Vector2(_random.Next(0, 31), _random.Next(0, 23)) * 32;
+		var spawnTile = new Vector2(_random.Next(1, 30), _random.Next(1, 22)) * 32;
 		var spawnPos = spawnTile + new Vector2(16, 16);
 		return spawnPos;
 	}
