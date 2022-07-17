@@ -17,17 +17,11 @@ public class Level : Node
 	private readonly Array _usedPitbossSpawns = new Array();
 
 	private int _currentLevel = 0;
-<<<<<<< HEAD
-	private int[] _pitbossSpawnCounts =		{ 0, 0, 1, 2, 3 }; 
-	private int[] _slotMachineSpawnCounts = { 1, 1, 2, 3, 4 }; 
-	private int[] _bouncerSpawnCounts =		{ 3, 4, 5, 5, 6 }; 
-	private int[] _cardTableSpawnCounts =	{ 4, 5, 6, 6, 7 }; 
-=======
-	private readonly int[] _pitbossSpawnCounts =		{ 0, 0, 1, 2, 3 }; 
-	private readonly int[] _slotMachineSpawnCounts =	{ 1, 1, 2, 3, 4 }; 
-	private readonly int[] _bouncerSpawnCounts =		{ 3, 4, 5, 5, 6 }; 
-	private readonly int[] _cardTableSpawnCounts =		{ 4, 5, 6, 6, 7 }; 
->>>>>>> 557bf5d95e25a2132212f015c07590d299b6b473
+	private readonly int[] _pitbossSpawnCounts =		{ 0, 0, 1, 2, 2, 3 }; 
+	private readonly int[] _slotMachineSpawnCounts =	{ 1, 2, 2, 3, 3, 4 }; 
+	private readonly int[] _bouncerSpawnCounts =		{ 3, 4, 4, 5, 6, 7 }; 
+	private readonly int[] _cardTableSpawnCounts =		{ 4, 5, 5, 5, 6, 6 }; 
+
 	
 	private Random _random;
 
@@ -39,6 +33,7 @@ public class Level : Node
 
 	private Sprite _success;
 	private Sprite _caught;
+	private Sprite _levelDie;
 
 	private List<CardTable> _cardTables;
 	private List<Node2D> _slotMachines;
@@ -57,6 +52,7 @@ public class Level : Node
 		_tileAudioPlayer = GetNode<AudioStreamPlayer>("TileAudioPlayer");
 		_success = GetNode<Sprite>("Success");
 		_caught = GetNode<Sprite>("Caught");
+		_levelDie = GetNode<Sprite>("LevelDie");
 		_diceTimerPosition = GetNode<Position2D>("DiceTimerPosition");
 		
 		_propSpawns = GetTree().GetNodesInGroup("propSpawns");
@@ -81,12 +77,9 @@ public class Level : Node
 		AddFootstepSound(Tile.Wood,    "footstep_wood_1");
 
 		GenerateLevel();
-<<<<<<< HEAD
-=======
 		_diceTimer.MakeVisibleAndStart();
 		
 		_diceTimer.Connect("TimerFinished", this, nameof(OnDiceTimerFinished));
->>>>>>> 557bf5d95e25a2132212f015c07590d299b6b473
 	}
 
 	
@@ -147,7 +140,7 @@ public class Level : Node
 		// Base layer
 		for (var x = 1; x < 31; x++)
 		{
-			for (var y = 1; y < 24; y++)
+			for (var y = 2; y < 24; y++)
 			{
 				_tileMap.SetCell(x, y, (int) Tile.Tile); 
 			}
@@ -184,7 +177,7 @@ public class Level : Node
 		{
 			for (var y = (int)topLeft.y; y < topLeft.y + height; y++)
 			{
-				if (x == 0 || x == 31 || y == 0 || y == 24) continue;
+				if (x == 0 || x == 31 || y == 0 || y == 1 || y == 24) continue;
 				tm.SetCell(x, y, tile);
 			}
 		}
@@ -350,7 +343,7 @@ public class Level : Node
 		_success.Visible = true;
 		_currentLevel++;
 		await ToSignal(GetTree().CreateTimer(1.5f), "timeout");
-		if (_currentLevel > 4)
+		if (_currentLevel > 5)
 		{
 			GetTree().ChangeScene("res://Scenes/EndScreen.tscn");
 		}

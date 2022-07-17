@@ -1,10 +1,25 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Assets/Tilesets/CasinoTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/Level.cs" type="Script" id=2]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Sprites/Text/Success.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Sprites/Text/You've Been Caught.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Sprites/Text/Level.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Sprites/Dice/5.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Sprites/Dice/3.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Sprites/Dice/1.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Sprites/Dice/2.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Sprites/Dice/6.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Sprites/Dice/4.png" type="Texture" id=13]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ null, ExtResource( 10 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 13 ), ExtResource( 8 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "countdown",
+"speed": 0.0
+} ]
 
 [node name="Level2" type="Node2D"]
 script = ExtResource( 2 )
@@ -14,10 +29,10 @@ tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 show_collision = true
 format = 1
-tile_data = PoolIntArray( 0, 5, 0, 1, 11, 0, 2, 11, 0, 3, 11, 0, 4, 11, 0, 5, 11, 0, 6, 11, 0, 7, 11, 0, 8, 11, 0, 9, 11, 0, 10, 11, 0, 11, 11, 0, 12, 11, 0, 13, 11, 0, 14, 11, 0, 15, 11, 0, 16, 11, 0, 17, 11, 0, 18, 11, 0, 19, 11, 0, 20, 11, 0, 21, 11, 0, 22, 11, 0, 23, 11, 0, 24, 11, 0, 25, 11, 0, 26, 11, 0, 27, 11, 0, 28, 11, 0, 29, 11, 0, 30, 11, 0, 31, 8, 0, 65536, 6, 0, 65567, 9, 0, 131072, 7, 0, 131103, 10, 0, 196608, 7, 0, 196639, 10, 0, 262144, 7, 0, 262175, 10, 0, 327680, 7, 0, 327711, 10, 0, 393216, 7, 0, 393247, 10, 0, 458752, 7, 0, 458783, 10, 0, 524288, 7, 0, 524319, 10, 0, 589824, 7, 0, 589855, 10, 0, 655360, 7, 0, 655391, 10, 0, 720896, 7, 0, 720927, 10, 0, 786432, 7, 0, 786463, 10, 0, 851968, 7, 0, 851999, 10, 0, 917504, 7, 0, 917535, 10, 0, 983040, 7, 0, 983071, 10, 0, 1048576, 7, 0, 1048607, 10, 0, 1114112, 7, 0, 1114143, 10, 0, 1179648, 7, 0, 1179679, 10, 0, 1245184, 7, 0, 1245215, 10, 0, 1310720, 7, 0, 1310751, 10, 0, 1376256, 7, 0, 1376287, 10, 0, 1441792, 7, 0, 1441823, 10, 0, 1507328, 7, 0, 1507359, 10, 0, 1572864, 11, 0, 1572865, 11, 0, 1572866, 11, 0, 1572867, 11, 0, 1572868, 11, 0, 1572869, 11, 0, 1572870, 11, 0, 1572871, 11, 0, 1572872, 11, 0, 1572873, 11, 0, 1572874, 11, 0, 1572875, 11, 0, 1572876, 11, 0, 1572877, 11, 0, 1572878, 11, 0, 1572879, 11, 0, 1572880, 11, 0, 1572881, 11, 0, 1572882, 11, 0, 1572883, 11, 0, 1572884, 11, 0, 1572885, 11, 0, 1572886, 11, 0, 1572887, 11, 0, 1572888, 11, 0, 1572889, 11, 0, 1572890, 11, 0, 1572891, 11, 0, 1572892, 11, 0, 1572893, 11, 0, 1572894, 11, 0, 1572895, 11, 0 )
+tile_data = PoolIntArray( 0, 5, 0, 1, 11, 0, 2, 11, 0, 3, 11, 0, 4, 11, 0, 5, 11, 0, 6, 11, 0, 7, 11, 0, 8, 11, 0, 9, 11, 0, 10, 11, 0, 11, 11, 0, 12, 11, 0, 13, 11, 0, 14, 11, 0, 15, 11, 0, 16, 11, 0, 17, 11, 0, 18, 11, 0, 19, 11, 0, 20, 11, 0, 21, 11, 0, 22, 11, 0, 23, 11, 0, 24, 11, 0, 25, 11, 0, 26, 11, 0, 27, 11, 0, 28, 11, 0, 29, 11, 0, 30, 11, 0, 31, 8, 0, 65536, 6, 0, 65537, 12, 0, 65538, 12, 0, 65539, 12, 0, 65540, 12, 0, 65541, 12, 0, 65542, 12, 0, 65543, 12, 0, 65544, 12, 0, 65545, 12, 0, 65546, 12, 0, 65547, 12, 0, 65548, 12, 0, 65549, 12, 0, 65550, 12, 0, 65551, 12, 0, 65552, 12, 0, 65553, 12, 0, 65554, 12, 0, 65555, 12, 0, 65556, 12, 0, 65557, 12, 0, 65558, 12, 0, 65559, 12, 0, 65560, 12, 0, 65561, 12, 0, 65562, 12, 0, 65563, 12, 0, 65564, 12, 0, 65565, 12, 0, 65566, 12, 0, 65567, 9, 0, 131072, 7, 0, 131103, 10, 0, 196608, 7, 0, 196639, 10, 0, 262144, 7, 0, 262175, 10, 0, 327680, 7, 0, 327711, 10, 0, 393216, 7, 0, 393247, 10, 0, 458752, 7, 0, 458783, 10, 0, 524288, 7, 0, 524319, 10, 0, 589824, 7, 0, 589855, 10, 0, 655360, 7, 0, 655391, 10, 0, 720896, 7, 0, 720927, 10, 0, 786432, 7, 0, 786463, 10, 0, 851968, 7, 0, 851999, 10, 0, 917504, 7, 0, 917535, 10, 0, 983040, 7, 0, 983071, 10, 0, 1048576, 7, 0, 1048607, 10, 0, 1114112, 7, 0, 1114143, 10, 0, 1179648, 7, 0, 1179679, 10, 0, 1245184, 7, 0, 1245215, 10, 0, 1310720, 7, 0, 1310751, 10, 0, 1376256, 7, 0, 1376287, 10, 0, 1441792, 7, 0, 1441823, 10, 0, 1507328, 7, 0, 1507359, 10, 0, 1572864, 11, 0, 1572865, 11, 0, 1572866, 11, 0, 1572867, 11, 0, 1572868, 11, 0, 1572869, 11, 0, 1572870, 11, 0, 1572871, 11, 0, 1572872, 11, 0, 1572873, 11, 0, 1572874, 11, 0, 1572875, 11, 0, 1572876, 11, 0, 1572877, 11, 0, 1572878, 11, 0, 1572879, 11, 0, 1572880, 11, 0, 1572881, 11, 0, 1572882, 11, 0, 1572883, 11, 0, 1572884, 11, 0, 1572885, 11, 0, 1572886, 11, 0, 1572887, 11, 0, 1572888, 11, 0, 1572889, 11, 0, 1572890, 11, 0, 1572891, 11, 0, 1572892, 11, 0, 1572893, 11, 0, 1572894, 11, 0, 1572895, 11, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 10, 10 )
+position = Vector2( -80, 54 )
 _speed = 100
 
 [node name="TileAudioPlayer" type="AudioStreamPlayer" parent="."]
@@ -116,16 +131,16 @@ position = Vector2( 705, 680 )
 position = Vector2( 900, 680 )
 
 [node name="PB1" type="Position2D" parent="SpawnPoints" groups=["pitbossSpawns"]]
-position = Vector2( 217.5, 64 )
+position = Vector2( 217.5, 80 )
 
 [node name="PB2" type="Position2D" parent="SpawnPoints" groups=["pitbossSpawns"]]
-position = Vector2( 412.5, 64 )
+position = Vector2( 412.5, 80 )
 
 [node name="PB3" type="Position2D" parent="SpawnPoints" groups=["pitbossSpawns"]]
-position = Vector2( 607.5, 64 )
+position = Vector2( 607.5, 80 )
 
 [node name="PB4" type="Position2D" parent="SpawnPoints" groups=["pitbossSpawns"]]
-position = Vector2( 802.5, 64 )
+position = Vector2( 802.5, 80 )
 
 [node name="Success" type="Sprite" parent="."]
 visible = false
@@ -139,5 +154,18 @@ texture = ExtResource( 6 )
 
 [node name="DiceTimerPosition" type="Position2D" parent="."]
 position = Vector2( 917, 101 )
+
+[node name="Level" type="Sprite" parent="."]
+position = Vector2( 86, 37 )
+scale = Vector2( 0.604167, 0.604167 )
+texture = ExtResource( 7 )
+
+[node name="LevelDie" type="AnimatedSprite" parent="."]
+position = Vector2( 160, 37 )
+scale = Vector2( 0.269206, 0.269206 )
+frames = SubResource( 1 )
+animation = "countdown"
+frame = 6
+speed_scale = 0.0
 
 [connection signal="timeout" from="FootstepClock" to="." method="_on_FootstepClock_timeout"]
