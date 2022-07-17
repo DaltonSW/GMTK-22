@@ -13,8 +13,14 @@ public class Level : Node
 
 	private Array _propSpawns;
 	private Array _pitbossSpawns;
-	private Array _usedPropSpawns = new Array();
-	private Array _usedPitbossSpawns = new Array();
+	private readonly Array _usedPropSpawns = new Array();
+	private readonly Array _usedPitbossSpawns = new Array();
+
+	private int _currentLevel = 1;
+	private int[] _pitbossSpawnCounts =		{ 0, 0, 1, 2, 3 }; 
+	private int[] _slotMachineSpawnCounts = { 1, 1, 2, 3, 4 }; 
+	private int[] _bouncerSpawnCounts =		{ 3, 4, 5, 5, 6 }; 
+	private int[] _cardTableSpawnCounts =	{ 4, 5, 6, 6, 7 }; 
 	
 	private Random _random;
 
@@ -166,7 +172,7 @@ public class Level : Node
 
 	private void GenerateCardTables()
 	{
-		for (var i = 0; i < 3; i++)
+		for (var i = 0; i < _cardTableSpawnCounts[_currentLevel]; i++)
 		{
 			AddCardTable(i == 1);
 		}
@@ -191,7 +197,7 @@ public class Level : Node
 
 	private void GenerateSlotMachines()
 	{
-		for (var i = 0; i < 1; i++)
+		for (var i = 0; i < _slotMachineSpawnCounts[_currentLevel]; i++)
 		{
 			var slotMachine = _slotMachineScene.Instance<Node2D>();
 			_slotMachines.Add(slotMachine);
@@ -251,16 +257,20 @@ public class Level : Node
 
 	private void SpawnEnemies()
 	{
-		for (var i = 0; i < 3; i++)
+		for (var i = 0; i < _bouncerSpawnCounts[_currentLevel]; i++)
 		{
 			var bouncer = (Bouncer)_bouncerScene.Instance();
 			bouncer.Position = RandomPropSpawn();
 			AddChild(bouncer);
 		}
 
-		var pitboss = (Pitboss)_pitbossScene.Instance();
-		pitboss.Position = RandomPitbossSpawn();
-		AddChild(pitboss);
+		for (var i = 0; i < _pitbossSpawnCounts[_currentLevel]; i++)
+		{
+			var pitboss = (Pitboss)_pitbossScene.Instance();
+			pitboss.Position = RandomPitbossSpawn();
+            AddChild(pitboss);
+		}
+		
 
 	}
 
