@@ -38,4 +38,7 @@ public class Bouncer : KinematicBody2D
 		_sprite.Animation = MovementAnimationUtils.NextMovementAnimation(_curDir, _sprite);
 		MoveAndSlide(_curDir * _speed);
 	}
+
+	[Signal]
+	delegate void player_collided();
 }

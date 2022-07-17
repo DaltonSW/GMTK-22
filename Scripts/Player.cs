@@ -108,10 +108,16 @@ public class Player : KinematicBody2D
 			if (collider != null)
 			{
 				collidedWithThisCheck.Add(collider);
-				if (!_objectsCollidedWithLastCheck.Contains(collider)
-					&& collider.IsInGroup("noise_prop_collision_box"))
+				if (!_objectsCollidedWithLastCheck.Contains(collider))
 				{
-					collider.EmitSignal("player_collided");
+					if (collider.IsInGroup("noise_prop_collision_box"))
+					{
+						collider.EmitSignal("player_collided");
+					}
+					if (collider.IsInGroup("bouncer"))
+					{
+						collider.EmitSignal("player_collided");
+					}
 				}
 			}
 		}
