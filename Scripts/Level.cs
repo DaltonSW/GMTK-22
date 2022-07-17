@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Array = Godot.Collections.Array;
 
 public class Level : Node
@@ -16,11 +15,11 @@ public class Level : Node
 	private readonly Array _usedPropSpawns = new Array();
 	private readonly Array _usedPitbossSpawns = new Array();
 
-	private int _currentLevel = 1;
-	private int[] _pitbossSpawnCounts =		{ 0, 0, 1, 2, 3 }; 
-	private int[] _slotMachineSpawnCounts = { 1, 1, 2, 3, 4 }; 
-	private int[] _bouncerSpawnCounts =		{ 3, 4, 5, 5, 6 }; 
-	private int[] _cardTableSpawnCounts =	{ 4, 5, 6, 6, 7 }; 
+	private int _currentLevel = 0;
+	private readonly int[] _pitbossSpawnCounts =		{ 0, 0, 1, 2, 3 }; 
+	private readonly int[] _slotMachineSpawnCounts =	{ 1, 1, 2, 3, 4 }; 
+	private readonly int[] _bouncerSpawnCounts =		{ 3, 4, 5, 5, 6 }; 
+	private readonly int[] _cardTableSpawnCounts =		{ 4, 5, 6, 6, 7 }; 
 	
 	private Random _random;
 
@@ -93,21 +92,19 @@ public class Level : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(float delta)
 	{
-		if (Input.IsActionJustPressed("ui_select"))
+		if (!Input.IsActionJustPressed("ui_select")) return;
+		if (_player.AdjacentToObjective)
 		{
-			if (_player.AdjacentToObjective)
-			{
-				_success.Visible = true;
-				GetTree().Paused = true;
-			} 
-			else
-			{
-				GenerateLevel();
-			}
+			_success.Visible = true;
+			GetTree().Paused = true;
+		} 
+		else
+		{
+			GenerateLevel();
 		}
 	}
 
-	public void GenerateTiles() 
+	private void GenerateTiles() 
 	{
 		// Base layer
 		for (var x = 1; x < 31; x++)
@@ -242,12 +239,12 @@ public class Level : Node
 		_player.Position = RandomPropSpawn();
 	}
 
-	private Vector2 RandomSpawnPosition()
-	{
-		var spawnTile = new Vector2(_random.Next(1, 30), _random.Next(1, 22)) * 32;
-		var spawnPos = spawnTile + new Vector2(16, 16);
-		return spawnPos;
-	}
+	// private Vector2 RandomSpawnPosition()
+	// {
+	// 	var spawnTile = new Vector2(_random.Next(1, 30), _random.Next(1, 22)) * 32;
+	// 	var spawnPos = spawnTile + new Vector2(16, 16);
+	// 	return spawnPos;
+	// }
 
 	private void OnDiceTimerFinished()
 	{
@@ -274,7 +271,7 @@ public class Level : Node
 
 	}
 
-	public Tile PlayerCurrentTile()
+	private Tile PlayerCurrentTile()
 	{
 		var curTileCoords = _tileMap.WorldToMap(_player.Position);
 		var tileI = _tileMap.GetCellv(curTileCoords);
