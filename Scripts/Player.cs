@@ -27,8 +27,7 @@ public static class ProtagonistOptionMethods
 
 public class Player : KinematicBody2D
 {
-	[Export]
-	private int _speed = 100;
+	[Export] private readonly int _speed = 100;
 
 	private Vector2 _velocity;
 
@@ -68,7 +67,7 @@ public class Player : KinematicBody2D
 		_objectsCollidedWithLastCheck = new List<CollisionObject2D>();
 	}
 
-	public Vector2 GetInputVelocity()
+	private Vector2 GetInputVelocity()
 	{
 		var velocity = new Vector2();
 		if (Input.IsActionPressed("right"))
