@@ -79,7 +79,7 @@ public class Level : Node
 		GenerateLevel();
 		_diceTimer.MakeVisibleAndStart();
 		
-		_diceTimer.Connect("TimerFinished", this, nameof(OnDiceTimerFinished));
+		//_diceTimer.Connect("TimerFinished", this, nameof(OnDiceTimerFinished));
 	}
 
 	
@@ -96,6 +96,10 @@ public class Level : Node
 		ClearSpawns();
 
 		RestartDiceTimer();
+
+		GetTree().Paused = false;
+		_caught.Visible = false;
+		_success.Visible = false;
 	}
 
 	private void RestartDiceTimer()
@@ -266,7 +270,7 @@ public class Level : Node
 	private void SpawnPlayer()
 	{
 		_player.SetProtagonist(Player.RandomProtagonistOption(_random));
-		_player.Visible = true;
+		//_player.Visible = true;
 		_player.Position = RandomPropSpawn();
 	}
 	
