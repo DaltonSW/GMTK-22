@@ -102,6 +102,7 @@ public class Level : Node
 		GetTree().Paused = false;
 		_caught.Visible = false;
 		_success.Visible = false;
+		_player.AdjacentToObjective = false;
 	}
 
 	private void RestartDiceTimer()
@@ -138,7 +139,6 @@ public class Level : Node
 		} 
 		else
 		{
-			
 			GenerateLevel();
 		}
 	}

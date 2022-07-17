@@ -33,7 +33,7 @@ public class Player : KinematicBody2D
 
 	private AnimatedSprite _protagSprite;
 
-	public bool AdjacentToObjective { get; private set; }
+	public bool AdjacentToObjective { get; set; }
 
 	public static ProtagonistOption RandomProtagonistOption(Random rng)
 	{
