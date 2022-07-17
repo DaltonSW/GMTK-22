@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/TitleScreenGJ.wav-8fdb1a4787cf5b72af0d173a83704ac8.sample"
+
+[deps]
+
+source_file="res://Assets/Music/TitleScreenGJ.wav"
+dest_files=[ "res://.import/TitleScreenGJ.wav-8fdb1a4787cf5b72af0d173a83704ac8.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
