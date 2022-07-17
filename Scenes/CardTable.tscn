@@ -38,7 +38,7 @@ position = Vector2( -1, -16 )
 rotation = 1.5708
 shape = SubResource( 1 )
 
-[node name="ExclamPoint" type="Sprite" parent="."]
+[node name="ExclamationPoint" type="Sprite" parent="."]
 position = Vector2( 1, -66 )
 texture = ExtResource( 7 )
 

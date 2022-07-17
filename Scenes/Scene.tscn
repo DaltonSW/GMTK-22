@@ -27,9 +27,6 @@ _speed = 100
 wait_time = 0.4
 autostart = true
 
-[node name="DiceTimer" parent="." instance=ExtResource( 4 )]
-position = Vector2( 917, 101 )
-
 [node name="YouWinMessage" type="Label" parent="."]
 visible = false
 margin_right = 103.0
@@ -140,5 +137,8 @@ texture = ExtResource( 5 )
 visible = false
 position = Vector2( 512, 384 )
 texture = ExtResource( 6 )
+
+[node name="DiceTimer" parent="." instance=ExtResource( 4 )]
+position = Vector2( 917, 101 )
 
 [connection signal="timeout" from="FootstepClock" to="." method="_on_FootstepClock_timeout"]
