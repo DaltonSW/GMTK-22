@@ -8,7 +8,9 @@ public class Intro : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        var rng = new Random();
         _player = GetNode<Player>("Player");
+        _player.SetProtagonist(Player.RandomProtagonistOption(rng));
         _player.Visible = true;
     }
 
