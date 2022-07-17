@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/Tilesets/CasinoTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/Level.cs" type="Script" id=2]
@@ -165,7 +165,7 @@ position = Vector2( 160, 37 )
 scale = Vector2( 0.269206, 0.269206 )
 frames = SubResource( 1 )
 animation = "countdown"
-frame = 6
+frame = 1
 speed_scale = 0.0
 
 [connection signal="timeout" from="FootstepClock" to="." method="_on_FootstepClock_timeout"]
