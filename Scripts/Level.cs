@@ -69,8 +69,7 @@ public class Level : Node
 		GenerateLevel();
 		_diceTimer.MakeVisibleAndStart();
 		
-		_diceTimer.Connect("TimerFinished", this, nameof(OnDiceTimerFinished)); 
-		
+		_diceTimer.Connect("TimerFinished", this, nameof(OnDiceTimerFinished));
 	}
 
 	private void GenerateLevel()
@@ -95,8 +94,7 @@ public class Level : Node
 		if (!Input.IsActionJustPressed("ui_select")) return;
 		if (_player.AdjacentToObjective)
 		{
-			_success.Visible = true;
-			GetTree().Paused = true;
+			AdvanceLevel();
 		} 
 		else
 		{
@@ -238,14 +236,7 @@ public class Level : Node
 		_player.Visible = true;
 		_player.Position = RandomPropSpawn();
 	}
-
-	// private Vector2 RandomSpawnPosition()
-	// {
-	// 	var spawnTile = new Vector2(_random.Next(1, 30), _random.Next(1, 22)) * 32;
-	// 	var spawnPos = spawnTile + new Vector2(16, 16);
-	// 	return spawnPos;
-	// }
-
+	
 	private void OnDiceTimerFinished()
 	{
 		_player.Visible = false;
@@ -267,8 +258,6 @@ public class Level : Node
 			pitboss.Position = RandomPitbossSpawn();
 			AddChild(pitboss);
 		}
-		
-
 	}
 
 	private Tile PlayerCurrentTile()
@@ -301,6 +290,18 @@ public class Level : Node
 		}
 	}
 
+	private async void AdvanceLevel()
+	{
+		GetTree().Paused = true;
+		_success.Visible = true;
+		_currentLevel++;
+		await ToSignal(GetTree().CreateTimer(1.5f), "timeout");
+		if (_currentLevel > 4)
+		{
+			GetTree().ChangeScene("res://Scenes/EndScreen.tscn");
+		}
+	}
+
 	public void PlayerLose()
 	{
 		GetTree().Paused = true;
@@ -316,4 +317,3 @@ public enum Tile
 	Wood,
 	Stone
 }
-
