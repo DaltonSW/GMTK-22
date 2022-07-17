@@ -406,4 +406,16 @@ position = Vector2( 705, 680 )
 [node name="25" type="Position2D" parent="SpawnPoints" groups=["propSpawns"]]
 position = Vector2( 900, 680 )
 
+[node name="PB1" type="Position2D" parent="SpawnPoints" groups=["pitbossSpawns"]]
+position = Vector2( 217.5, 64 )
+
+[node name="PB2" type="Position2D" parent="SpawnPoints" groups=["pitbossSpawns"]]
+position = Vector2( 412.5, 64 )
+
+[node name="PB3" type="Position2D" parent="SpawnPoints" groups=["pitbossSpawns"]]
+position = Vector2( 607.5, 64 )
+
+[node name="PB4" type="Position2D" parent="SpawnPoints" groups=["pitbossSpawns"]]
+position = Vector2( 802.5, 64 )
+
 [connection signal="timeout" from="FootstepClock" to="." method="_on_FootstepClock_timeout"]

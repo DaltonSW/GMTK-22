@@ -6,11 +6,13 @@ using Array = Godot.Collections.Array;
 
 public class Level : Node
 {
-	private PackedScene _enemyScene;
+	private PackedScene _bouncerScene;
+	private PackedScene _pitbossScene;
 	private PackedScene _cardTableScene;
 	private PackedScene _slotMachineScene;
 
 	private Array _propSpawns;
+	private Array _pitbossSpawns;
 	
 	private Random _random;
 
@@ -36,10 +38,12 @@ public class Level : Node
 		_diceTimer = GetNode<DiceTimer>("DiceTimer");
 		_youWinMessage = GetNode<Label>("YouWinMessage");
 		_propSpawns = GetTree().GetNodesInGroup("propSpawns");
+		_pitbossSpawns = GetTree().GetNodesInGroup("pitbossSpawns");
 		_cardTables = new List<CardTable>();
 		_slotMachines = new List<Node2D>();
 
-		_enemyScene = GD.Load<PackedScene>("res://Scenes/Characters/Bouncer.tscn");
+		_bouncerScene = GD.Load<PackedScene>("res://Scenes/Characters/Bouncer.tscn");
+		_pitbossScene = GD.Load<PackedScene>("res://Scenes/Characters/Pitboss.tscn");
 		_cardTableScene = GD.Load<PackedScene>("res://Scenes/CardTable.tscn");
 		_slotMachineScene = GD.Load<PackedScene>("res://Scenes/Props/SlotMachine.tscn");
 
@@ -197,6 +201,14 @@ public class Level : Node
 		return spawnPoint.Position;
 	}
 
+	private Vector2 RandomPitbossSpawn()
+	{
+		var idx = _random.Next(0, _pitbossSpawns.Count);
+		var spawnPoint = (Position2D)_pitbossSpawns[idx];
+		_pitbossSpawns.Remove(idx);
+		return spawnPoint.Position;
+	}
+
 	private void SpawnPlayer()
 	{
 		_player.SetProtagonist(Player.RandomProtagonistOption(_random));
@@ -221,10 +233,15 @@ public class Level : Node
 	{
 		for (var i = 0; i < 3; i++)
 		{
-			var bouncer = (Bouncer)_enemyScene.Instance();
+			var bouncer = (Bouncer)_bouncerScene.Instance();
 			bouncer.Position = GetRandomTile() * 32;
 			AddChild(bouncer);
 		}
+
+		var pitboss = (Pitboss)_pitbossScene.Instance();
+		pitboss.Position = RandomPitbossSpawn();
+		AddChild(pitboss);
+
 	}
 
 	public Tile PlayerCurrentTile()
