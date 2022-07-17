@@ -22,7 +22,7 @@ public class Pitboss : KinematicBody2D
 		_phoneTimer = GetNode<Timer>("PhoneTimer");
 		_alertTimer = GetNode<Timer>("AlertTimer");
 		_fieldOfView = GetNode<Area2D>("FieldOfView");
-		_level = GetNodeOrNull<Level>("root/Scene");
+		_level = GetNodeOrNull<Level>("..");
 
 		OnAlertTimerTimeout();
 
