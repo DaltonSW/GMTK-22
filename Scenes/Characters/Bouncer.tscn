@@ -406,7 +406,7 @@ script = ExtResource( 2 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 12 )
 animation = "Walk Down"
-frame = 2
+frame = 4
 speed_scale = 2.0
 playing = true
 
