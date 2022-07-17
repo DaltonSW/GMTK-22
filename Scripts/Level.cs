@@ -300,6 +300,7 @@ public class Level : Node
 			_bouncers.Add(bouncer);
 			bouncer.Position = RandomPropSpawn();
 			AddChild(bouncer);
+			bouncer.Connect("player_collided", this, nameof(PlayerLose));
 		}
 
 		for (var i = 0; i < _pitbossSpawnCounts[_currentLevel]; i++)
