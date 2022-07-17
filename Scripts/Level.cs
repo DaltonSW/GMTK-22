@@ -135,6 +135,7 @@ public class Level : Node
 		} 
 		else
 		{
+			
 			GenerateLevel();
 		}
 	}
@@ -359,10 +360,12 @@ public class Level : Node
 		}
 	}
 
-	public void PlayerLose()
+	public async void PlayerLose()
 	{
 		GetTree().Paused = true;
 		_caught.Visible = true;
+		await ToSignal(GetTree().CreateTimer(1.5f), "timeout");
+		GenerateLevel();
 	}
 }
 

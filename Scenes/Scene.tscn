@@ -143,15 +143,15 @@ position = Vector2( 607.5, 80 )
 [node name="PB4" type="Position2D" parent="SpawnPoints" groups=["pitbossSpawns"]]
 position = Vector2( 802.5, 80 )
 
-[node name="Success" type="Sprite" parent="."]
-visible = false
-position = Vector2( 512, 384 )
-texture = ExtResource( 5 )
-
 [node name="Caught" type="Sprite" parent="."]
 visible = false
 position = Vector2( 512, 384 )
 texture = ExtResource( 6 )
+
+[node name="Success" type="Sprite" parent="."]
+visible = false
+position = Vector2( 512, 384 )
+texture = ExtResource( 5 )
 
 [node name="DiceTimerPosition" type="Position2D" parent="."]
 position = Vector2( 917, 101 )
