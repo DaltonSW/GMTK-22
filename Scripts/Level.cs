@@ -265,7 +265,7 @@ public class Level : Node
 		{
 			var pitboss = (Pitboss)_pitbossScene.Instance();
 			pitboss.Position = RandomPitbossSpawn();
-            AddChild(pitboss);
+			AddChild(pitboss);
 		}
 		
 
