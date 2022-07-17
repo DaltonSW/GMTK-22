@@ -24,6 +24,6 @@ wait_time = 0.4
 autostart = true
 
 [node name="Node2D" parent="." instance=ExtResource( 4 )]
-position = Vector2( 129, 689 )
+position = Vector2( 129, 706 )
 
 [connection signal="timeout" from="FootstepClock" to="." method="_on_FootstepClock_timeout"]
