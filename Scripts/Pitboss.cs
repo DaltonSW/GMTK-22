@@ -5,6 +5,7 @@ public class Pitboss : KinematicBody2D
 {
 	private Timer _phoneTimer;
 	private Timer _alertTimer;
+	private Level _level;
 
 	private Area2D _fieldOfView;
 
@@ -21,8 +22,14 @@ public class Pitboss : KinematicBody2D
 		_phoneTimer = GetNode<Timer>("PhoneTimer");
 		_alertTimer = GetNode<Timer>("AlertTimer");
 		_fieldOfView = GetNode<Area2D>("FieldOfView");
+		_level = GetNodeOrNull<Level>("root/Scene");
 
 		OnAlertTimerTimeout();
+
+		if (_level != null)
+		{
+			Connect("DetectedPlayer", _level, nameof(Level.PlayerLose));
+		}
 	}
 
 	public void OnPhoneTimerTimeout()

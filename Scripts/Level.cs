@@ -55,9 +55,10 @@ public class Level : Node
 		AddFootstepSound(Tile.Wood,    "footstep_wood_1");
 
 		GenerateLevel();
-
 		_diceTimer.MakeVisibleAndStart();
+		
 		_diceTimer.Connect("TimerFinished", this, nameof(OnDiceTimerFinished)); 
+		
 	}
 
 	private void GenerateLevel()
@@ -272,6 +273,11 @@ public class Level : Node
 				_tileAudioPlayer.Play();
 			}
 		}
+	}
+
+	public void PlayerLose()
+	{
+		
 	}
 }
 
