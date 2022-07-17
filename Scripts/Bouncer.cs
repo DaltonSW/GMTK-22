@@ -5,7 +5,7 @@ public class Bouncer : KinematicBody2D
 {
 	private Timer _timer;
 
-	[Export] private float _rotateInterval = 2f;
+	//[Export] private float _rotateInterval = 4f;
 
 	[Export] private float _speed = 80f;
 
@@ -21,7 +21,7 @@ public class Bouncer : KinematicBody2D
 	{
 		_sprite = GetNode<AnimatedSprite>("AnimatedSprite");
 		_timer = GetNode<Timer>("Timer");
-		_timer.WaitTime = _rotateInterval;
+		//_timer.WaitTime = _rotateInterval;
 		_timer.Start();
 		_timer.Connect("timeout", this, nameof(OnTimerTick));
 		_curDir = _dirs[_dirIndex];

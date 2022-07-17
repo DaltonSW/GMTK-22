@@ -213,7 +213,7 @@ public class Level : Node
 	{
 		_player.SetProtagonist(Player.RandomProtagonistOption(_random));
 		_player.Visible = true;
-		_player.Position = RandomSpawnPosition();
+		_player.Position = RandomPropSpawn();
 	}
 
 	private Vector2 RandomSpawnPosition()
@@ -234,7 +234,7 @@ public class Level : Node
 		for (var i = 0; i < 3; i++)
 		{
 			var bouncer = (Bouncer)_bouncerScene.Instance();
-			bouncer.Position = GetRandomTile() * 32;
+			bouncer.Position = RandomPropSpawn();
 			AddChild(bouncer);
 		}
 
@@ -273,7 +273,6 @@ public class Level : Node
 			}
 		}
 	}
-
 }
 
 public enum Tile
