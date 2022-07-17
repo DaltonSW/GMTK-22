@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Sounds/bonk_metal.wav" type="AudioStream" id=1]
-[ext_resource path="res://Assets/Sprites/arcade_cabinet.jpg" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/Slot_Machines.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Sounds/slots.mp3" type="AudioStream" id=3]
 [ext_resource path="res://Scenes/NoiseProp.tscn" type="PackedScene" id=4]
 
@@ -12,11 +12,10 @@ ProximityAudioStream = ExtResource( 3 )
 CollisionAudioStream = ExtResource( 1 )
 
 [node name="Sprite" parent="NoiseProp" index="0"]
-position = Vector2( 0, 0 )
-scale = Vector2( 0.25, 0.25 )
+scale = Vector2( 1, 1 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" parent="NoiseProp/CollisionBox" index="0"]
-position = Vector2( -3.5, -15 )
+position = Vector2( 0, -1 )
 
 [editable path="NoiseProp"]
