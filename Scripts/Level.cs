@@ -33,7 +33,7 @@ public class Level : Node
 
 	private Sprite _success;
 	private Sprite _caught;
-	private Sprite _levelDie;
+	private AnimatedSprite _levelDie;
 
 	private List<CardTable> _cardTables;
 	private List<Node2D> _slotMachines;
@@ -52,7 +52,7 @@ public class Level : Node
 		_tileAudioPlayer = GetNode<AudioStreamPlayer>("TileAudioPlayer");
 		_success = GetNode<Sprite>("Success");
 		_caught = GetNode<Sprite>("Caught");
-		_levelDie = GetNode<Sprite>("LevelDie");
+		_levelDie = GetNode<AnimatedSprite>("LevelDie");
 		_diceTimerPosition = GetNode<Position2D>("DiceTimerPosition");
 		
 		_propSpawns = GetTree().GetNodesInGroup("propSpawns");
@@ -342,10 +342,15 @@ public class Level : Node
 		GetTree().Paused = true;
 		_success.Visible = true;
 		_currentLevel++;
+		_levelDie.Frame = _currentLevel + 1;
 		await ToSignal(GetTree().CreateTimer(1.5f), "timeout");
 		if (_currentLevel > 5)
 		{
 			GetTree().ChangeScene("res://Scenes/EndScreen.tscn");
+		}
+		else
+		{
+			GenerateLevel();
 		}
 	}
 
