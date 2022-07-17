@@ -8,7 +8,7 @@ public class MainMenu : Control
 
 	public override void _Ready()
 	{
-		_menuSong = GD.Load<AudioStreamSample>("res://Assets/Sounds/MainMenu.wav");
+		_menuSong = GD.Load<AudioStreamSample>("res://Assets/Music/TitleScreenGJ.wav");
 		_audioPlayer = GetNode<AudioStreamPlayer>("AudioPlayer");
 		_audioPlayer.Autoplay = true;
 		_audioPlayer.Stream = _menuSong;
