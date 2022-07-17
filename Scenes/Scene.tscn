@@ -311,7 +311,7 @@ position = Vector2( 10, 10 )
 [node name="TileAudioPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="FootstepClock" type="Timer" parent="."]
-wait_time = 0.6
+wait_time = 0.4
 autostart = true
 
 [node name="DiceTimer" parent="." instance=ExtResource( 4 )]
