@@ -20,7 +20,7 @@ animations = [ {
 script = ExtResource( 7 )
 
 [node name="Die" type="AnimatedSprite" parent="."]
-position = Vector2( 2, 2 )
+scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 1 )
 animation = "countdown"
 frame = 6

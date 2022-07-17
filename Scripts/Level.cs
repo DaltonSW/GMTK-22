@@ -33,6 +33,7 @@ public class Level : Node
 
 	private Sprite _success;
 	private Sprite _caught;
+	private Sprite _enemiesSpawning;
 	private AnimatedSprite _levelDie;
 
 	private List<CardTable> _cardTables;
@@ -52,6 +53,7 @@ public class Level : Node
 		_tileAudioPlayer = GetNode<AudioStreamPlayer>("TileAudioPlayer");
 		_success = GetNode<Sprite>("Success");
 		_caught = GetNode<Sprite>("Caught");
+		_enemiesSpawning = GetNode<Sprite>("EnemiesSpawning");
 		_levelDie = GetNode<AnimatedSprite>("LevelDie");
 		_diceTimerPosition = GetNode<Position2D>("DiceTimerPosition");
 		
@@ -114,6 +116,7 @@ public class Level : Node
 		}
 		_diceTimer = _diceTimerScene.Instance<DiceTimer>();
 		AddChild(_diceTimer);
+		_enemiesSpawning.Visible = true;
 		_diceTimer.Connect("TimerFinished", this, nameof(OnDiceTimerFinished));
 		_diceTimer.Position = _diceTimerPosition.Position;
 		_diceTimer.MakeVisibleAndStart();
@@ -278,6 +281,7 @@ public class Level : Node
 	private void OnDiceTimerFinished()
 	{
 		_player.Visible = false;
+		_enemiesSpawning.Visible = false;
 		SpawnEnemies();
 	}
 

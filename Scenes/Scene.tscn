@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Assets/Tilesets/CasinoTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/Level.cs" type="Script" id=2]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Sprites/Text/Enemies Spawning.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Sprites/Text/Success.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Sprites/Text/You've Been Caught.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Sprites/Text/Level.png" type="Texture" id=7]
@@ -154,16 +155,21 @@ position = Vector2( 512, 384 )
 texture = ExtResource( 5 )
 
 [node name="DiceTimerPosition" type="Position2D" parent="."]
-position = Vector2( 917, 101 )
+position = Vector2( 967, 36 )
 
 [node name="Level" type="Sprite" parent="."]
 position = Vector2( 86, 37 )
 scale = Vector2( 0.604167, 0.604167 )
 texture = ExtResource( 7 )
 
+[node name="EnemiesSpawning" type="Sprite" parent="."]
+position = Vector2( 779, 36 )
+scale = Vector2( 0.604167, 0.604167 )
+texture = ExtResource( 4 )
+
 [node name="LevelDie" type="AnimatedSprite" parent="."]
-position = Vector2( 160, 37 )
-scale = Vector2( 0.269206, 0.269206 )
+position = Vector2( 172, 37 )
+scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 1 )
 animation = "countdown"
 frame = 1
