@@ -20,6 +20,9 @@ position = Vector2( 0, -35 )
 
 [node name="KinematicBody2D" parent="Dealer" index="0" groups=["objective"]]
 
+[node name="AnimatedSprite" parent="Dealer/KinematicBody2D" index="0"]
+frame = 3
+
 [node name="NoiseProp" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 30 )
 ProximityAudioStream = ExtResource( 4 )

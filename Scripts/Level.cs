@@ -13,6 +13,8 @@ public class Level : Node
 
 	private Array _propSpawns;
 	private Array _pitbossSpawns;
+	private Array _usedPropSpawns = new Array();
+	private Array _usedPitbossSpawns = new Array();
 	
 	private Random _random;
 
@@ -201,17 +203,29 @@ public class Level : Node
 
 	private Vector2 RandomPropSpawn()
 	{
-		var idx = _random.Next(0, _propSpawns.Count);
+		int idx;
+		while (true)
+		{
+			idx = _random.Next(0, _propSpawns.Count);
+			if (_usedPropSpawns.Contains(idx)) continue;
+			_usedPropSpawns.Add(idx);
+			break;
+		}
 		var spawnPoint = (Position2D)_propSpawns[idx];
-		_propSpawns.Remove(idx);
 		return spawnPoint.Position;
 	}
 
 	private Vector2 RandomPitbossSpawn()
 	{
-		var idx = _random.Next(0, _pitbossSpawns.Count);
+		int idx;
+		while (true)
+		{
+			idx = _random.Next(0, _pitbossSpawns.Count);
+			if (_usedPitbossSpawns.Contains(idx)) continue;
+			_usedPitbossSpawns.Add(idx);
+			break;
+		}
 		var spawnPoint = (Position2D)_pitbossSpawns[idx];
-		_pitbossSpawns.Remove(idx);
 		return spawnPoint.Position;
 	}
 
