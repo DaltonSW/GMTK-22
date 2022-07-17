@@ -10,13 +10,14 @@ public class Level : Node
 	private PackedScene _pitbossScene;
 	private PackedScene _cardTableScene;
 	private PackedScene _slotMachineScene;
+	private PackedScene _diceTimerScene;
 
 	private Array _propSpawns;
 	private Array _pitbossSpawns;
 	private readonly Array _usedPropSpawns = new Array();
 	private readonly Array _usedPitbossSpawns = new Array();
 
-	private int _currentLevel = 1;
+	private int _currentLevel = 0;
 	private int[] _pitbossSpawnCounts =		{ 0, 0, 1, 2, 3 }; 
 	private int[] _slotMachineSpawnCounts = { 1, 1, 2, 3, 4 }; 
 	private int[] _bouncerSpawnCounts =		{ 3, 4, 5, 5, 6 }; 
@@ -28,12 +29,15 @@ public class Level : Node
 	private Player _player;
 	private AudioStreamPlayer _tileAudioPlayer;
 	private DiceTimer _diceTimer;
+	private Position2D _diceTimerPosition;
 
 	private Sprite _success;
 	private Sprite _caught;
 
 	private List<CardTable> _cardTables;
 	private List<Node2D> _slotMachines;
+	private List<Bouncer> _bouncers;
+	private List<Pitboss> _pitBosses;
 
 	private Dictionary<Tile, AudioStream> _footstepSounds;
 
@@ -45,20 +49,23 @@ public class Level : Node
 		_tileMap = GetNode<TileMap>("Map");
 		_player = GetNode<Player>("Player");
 		_tileAudioPlayer = GetNode<AudioStreamPlayer>("TileAudioPlayer");
-		_diceTimer = GetNode<DiceTimer>("DiceTimer");
 		_success = GetNode<Sprite>("Success");
 		_caught = GetNode<Sprite>("Caught");
+		_diceTimerPosition = GetNode<Position2D>("DiceTimerPosition");
 		
 		_propSpawns = GetTree().GetNodesInGroup("propSpawns");
 		_pitbossSpawns = GetTree().GetNodesInGroup("pitbossSpawns");
 		
 		_cardTables = new List<CardTable>();
 		_slotMachines = new List<Node2D>();
+		_bouncers = new List<Bouncer>();
+		_pitBosses = new List<Pitboss>();
 
 		_bouncerScene = GD.Load<PackedScene>("res://Scenes/Characters/Bouncer.tscn");
 		_pitbossScene = GD.Load<PackedScene>("res://Scenes/Characters/Pitboss.tscn");
 		_cardTableScene = GD.Load<PackedScene>("res://Scenes/CardTable.tscn");
 		_slotMachineScene = GD.Load<PackedScene>("res://Scenes/Props/SlotMachine.tscn");
+		_diceTimerScene = GD.Load<PackedScene>("res://Scenes/DiceTimer.tscn");
 
 		_footstepSounds = new Dictionary<Tile, AudioStream>();
 		AddFootstepSound(Tile.Stone,   "footstep_tile_1");
@@ -68,12 +75,9 @@ public class Level : Node
 		AddFootstepSound(Tile.Wood,    "footstep_wood_1");
 
 		GenerateLevel();
-		_diceTimer.MakeVisibleAndStart();
-		
-		_diceTimer.Connect("TimerFinished", this, nameof(OnDiceTimerFinished)); 
-		
 	}
 
+	
 	private void GenerateLevel()
 	{
 		GenerateTiles();
@@ -82,6 +86,28 @@ public class Level : Node
 		GenerateCardTables();
 		ClearSlotMachines();
 		GenerateSlotMachines();
+
+		ClearEnemies();
+		ClearSpawns();
+
+		RestartDiceTimer();
+	}
+
+	private void RestartDiceTimer()
+	{
+		if (_diceTimer != null)
+		{
+			if (IsInstanceValid(_diceTimer))
+			{
+				_diceTimer.QueueFree();
+			}
+			_diceTimer = null;
+		}
+		_diceTimer = _diceTimerScene.Instance<DiceTimer>();
+		AddChild(_diceTimer);
+		_diceTimer.Connect("TimerFinished", this, nameof(OnDiceTimerFinished));
+		_diceTimer.Position = _diceTimerPosition.Position;
+		_diceTimer.MakeVisibleAndStart();
 	}
 
 	private void AddFootstepSound(Tile tile, string wavFileName)
@@ -255,11 +281,24 @@ public class Level : Node
 		SpawnEnemies();
 	}
 
+	private void ClearEnemies()
+	{
+		ClearNodes(_bouncers);
+		ClearNodes(_pitBosses);
+	}
+
+	private void ClearSpawns()
+	{
+		_usedPropSpawns.Clear();
+		_usedPitbossSpawns.Clear();
+	}
+
 	private void SpawnEnemies()
 	{
 		for (var i = 0; i < _bouncerSpawnCounts[_currentLevel]; i++)
 		{
 			var bouncer = (Bouncer)_bouncerScene.Instance();
+			_bouncers.Add(bouncer);
 			bouncer.Position = RandomPropSpawn();
 			AddChild(bouncer);
 		}
@@ -267,11 +306,10 @@ public class Level : Node
 		for (var i = 0; i < _pitbossSpawnCounts[_currentLevel]; i++)
 		{
 			var pitboss = (Pitboss)_pitbossScene.Instance();
+			_pitBosses.Add(pitboss);
 			pitboss.Position = RandomPitbossSpawn();
-            AddChild(pitboss);
+			AddChild(pitboss);
 		}
-		
-
 	}
 
 	public Tile PlayerCurrentTile()
