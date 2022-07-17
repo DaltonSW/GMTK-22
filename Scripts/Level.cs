@@ -21,9 +21,11 @@ public class Level : Node
 	private AudioStreamPlayer _tileAudioPlayer;
 	private DiceTimer _diceTimer;
 
+	private Sprite _success;
+	private Sprite _caught;
+
 	private List<CardTable> _cardTables;
 	private List<Node2D> _slotMachines;
-	private Label _youWinMessage;
 
 	private Dictionary<Tile, AudioStream> _footstepSounds;
 
@@ -36,9 +38,12 @@ public class Level : Node
 		_player = GetNode<Player>("Player");
 		_tileAudioPlayer = GetNode<AudioStreamPlayer>("TileAudioPlayer");
 		_diceTimer = GetNode<DiceTimer>("DiceTimer");
-		_youWinMessage = GetNode<Label>("YouWinMessage");
+		_success = GetNode<Sprite>("Success");
+		_caught = GetNode<Sprite>("Caught");
+		
 		_propSpawns = GetTree().GetNodesInGroup("propSpawns");
 		_pitbossSpawns = GetTree().GetNodesInGroup("pitbossSpawns");
+		
 		_cardTables = new List<CardTable>();
 		_slotMachines = new List<Node2D>();
 
@@ -84,7 +89,7 @@ public class Level : Node
 		{
 			if (_player.AdjacentToObjective)
 			{
-				_youWinMessage.Visible = true;
+				_success.Visible = true;
 				GetTree().Paused = true;
 			} 
 			else
@@ -277,7 +282,8 @@ public class Level : Node
 
 	public void PlayerLose()
 	{
-		
+		GetTree().Paused = true;
+		_caught.Visible = true;
 	}
 }
 

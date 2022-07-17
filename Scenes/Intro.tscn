@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Tilesets/CasinoTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/Level.cs" type="Script" id=2]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/CardTable.tscn" type="PackedScene" id=4]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
@@ -21,5 +22,8 @@ position = Vector2( 10, 10 )
 [node name="FootstepClock" type="Timer" parent="."]
 wait_time = 0.4
 autostart = true
+
+[node name="Node2D" parent="." instance=ExtResource( 4 )]
+position = Vector2( 129, 689 )
 
 [connection signal="timeout" from="FootstepClock" to="." method="_on_FootstepClock_timeout"]
